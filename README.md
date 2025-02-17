@@ -40,7 +40,10 @@ pip install timm==1.0.10
 
 
 run
-./tools/dist_train.sh config/prune/BASE_segvit_ade20k_large.py /workspace
+./tools/dist_train.sh config/prune/BASE_segvit_ade20k_large.py /
+
+data prepare
+wget -P ./data http://data.csail.mit.edu/places/ADEchallenge/ADEChallengeData2016.zip
 ```
 
 ## Training
