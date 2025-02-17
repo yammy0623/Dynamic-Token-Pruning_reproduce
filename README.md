@@ -23,6 +23,26 @@ torch==2.0.0 mmcls==1.0.0.rc5, mmcv==2.0.0 mmengine==0.7.0 mmsegmentation==1.0.0
 ```
 or up-to-date mmxx series till 9 Aug 2023
 
+```
+ADD
+pip install openmim setuptools
+pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
+mim install "mmcv==2.0.0"
+mim install "mmcls==1.0.0.rc5"
+mim install "mmsegmentation==1.0.0rc6"
+pip install einops
+pip install tomli
+pip install platformdirs
+pip install importlib_resources
+pip install fvcore
+pip install einops tomli platformdirs importlib_resources fvcore
+pip install timm==1.0.10
+
+
+run
+./tools/dist_train.sh config/prune/BASE_segvit_ade20k_large.py /workspace
+```
+
 ## Training
 To aquire the base model
 ```
@@ -46,7 +66,7 @@ Please follow the instructions of [mmsegmentation](https://github.com/open-mmlab
 | Method       | Backbone  | mIoU | GFlops | config | ckpt |
 |--------------|-----------|------|--------|--------|------|
 | Segvit       | Vit-base  | 49.6 | 109.9  | [config](./config/prune/BASE_segvit_ade20k.py)       |      |
-| Segvit-prune |  Vit-base | 49.8 |   86.8 | [config](./config/prune/prune_segvit_ade20k.py)       |      |
+| Segvit-prune | Vit-base | 49.8 |   86.8 | [config](./config/prune/prune_segvit_ade20k.py)       |      |
 | Segvit       | Vit-large | 53.3 |  617.0 | [config](./config/prune/BASE_segvit_ade20k_large.py)       |      |
 | Segvit-prune | Vit-large | 52.8 |  412.8 |  [config](./config/prune/prune_segvit_ade20k_large.py)      |      |
 
