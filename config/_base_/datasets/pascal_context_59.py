@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'PascalContextDataset59'
-data_root = '/data/VOCdevkit/VOC2010/'
+data_root = './data/VOCdevkit/VOC2010/'
 
 img_scale = (2048, 520) # compromise for mmengin Resize
 crop_size = (480, 480)
