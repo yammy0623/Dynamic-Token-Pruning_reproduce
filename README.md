@@ -30,6 +30,7 @@ pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https
 mim install "mmcv==2.0.0"
 mim install "mmcls==1.0.0.rc5"
 mim install "mmsegmentation==1.0.0rc6"
+mim install "mmengine==0.7.0"
 pip install einops
 pip install tomli
 pip install platformdirs
@@ -37,13 +38,23 @@ pip install importlib_resources
 pip install fvcore
 pip install einops tomli platformdirs importlib_resources fvcore
 pip install timm==1.0.10
+pip install yapf==0.40.0
 
 
 run
-./tools/dist_train.sh config/prune/BASE_segvit_ade20k_large.py /
+./tools/dist_train.sh config/prune/BASE_segvit_ade20k.py ./exp
+./tools/dist_train_load.sh config/prune/prune_segvit_ade20k.py ./exp ./exp/ckpt-BASE_segvit_ade20k/iter_40000.pth
+./tools/dist_test.sh  config/prune/prune_segvit_ade20k_large.py ./exp/ckpt-BASE_segvit_ade20k/iter_40000.pth
 
 data prepare
 wget -P ./data http://data.csail.mit.edu/places/ADEchallenge/ADEChallengeData2016.zip
+wget -P ./data http://host.robots.ox.ac.uk/pascal/VOC/voc2010/VOCtrainval_03-May-2010.tar
+wget -P ./data http://host.robots.ox.ac.uk:8080/eval/downloads/VOC2010test.tar
+wget -P ./data http://calvin.inf.ed.ac.uk/wp-content/uploads/data/cocostuffdataset/cocostuff-10k-v1.1.zip
+wget -P ./data/coco_stuff10k http://images.cocodataset.org/zips/train2017.zip
+wget -P ./data/coco_stuff10k http://images.cocodataset.org/zips/val2017.zip
+
+
 ```
 
 ## Training
