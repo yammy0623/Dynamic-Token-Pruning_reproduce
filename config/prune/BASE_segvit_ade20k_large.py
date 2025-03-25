@@ -124,7 +124,7 @@ log_processor = dict(
 )
 
 # num_gpus: 8 -> batch_size: 16
-train_dataloader = dict(batch_size=4)
+train_dataloader = dict(batch_size=1) # 1
 val_dataloader = dict(batch_size=1)
 test_dataloader = val_dataloader
 find_unused_parameters=True

@@ -8,13 +8,14 @@ PORT=${PORT:-29500}
 MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
 
 ((PORT = $PORT + $RANDOM % 50 + 1))
+export CUDA_VISIBLE_DEVICES=2,3
 
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
 python -m torch.distributed.launch \
     --nnodes=$NNODES \
     --node_rank=$NODE_RANK \
     --master_addr=$MASTER_ADDR \
-    --nproc_per_node=4 \
+    --nproc_per_node=2 \
     --master_port=$PORT \
     $(dirname "$0")/train.py \
     $CONFIG \

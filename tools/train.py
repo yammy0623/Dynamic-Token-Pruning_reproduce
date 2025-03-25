@@ -96,6 +96,7 @@ def main():
         # if 'runner_type' is set in the cfg
         runner = RUNNERS.build(cfg)
 
+    torch.cuda.empty_cache()
     # start training
     runner.train()
 

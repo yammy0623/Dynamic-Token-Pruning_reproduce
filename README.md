@@ -54,8 +54,48 @@ wget -P ./data http://calvin.inf.ed.ac.uk/wp-content/uploads/data/cocostuffdatas
 wget -P ./data/coco_stuff10k http://images.cocodataset.org/zips/train2017.zip
 wget -P ./data/coco_stuff10k http://images.cocodataset.org/zips/val2017.zip
 
+docker build -t dtop_image .
+docker run -it --name dtop_container_new --runtime=nvidia --gpus all --shm-size=16g \
+    --device=/dev/nvidia-uvm \
+    --device=/dev/nvidia-uvm-tools \
+    --device=/dev/nvidia-modeset \
+    --device=/dev/nvidiactl \
+    --device=/dev/nvidia0 \
+    --device=/dev/nvidia1 \
+    --device=/dev/nvidia2 \
+    --device=/dev/nvidia3 \
+    -v /tmp2/christine/dtop:/workspace \
+    -v /home/christine:/home \
+    dtop_image /bin/bash
+    
+```
+
+## Issue
+```
+AttributeError: class `PascalContextDataset59` in mmseg/datasets/pascal_context.py: 'PascalContextDataset59' object has no attribute 'file_client'
+```
+mmseg/datasets/pascal_context.py command 掉 file_client
+
+for COCO dataset
+要自己額外去官網加這個轉換code到tool/dataset_converters
+https://github.com/open-mmlab/mmsegmentation/blob/0.x/tools/convert_datasets/coco_stuff10k.py
 
 ```
+# download
+mkdir coco_stuff10k && cd coco_stuff10k
+wget http://calvin.inf.ed.ac.uk/wp-content/uploads/data/cocostuffdataset/cocostuff-10k-v1.1.zip
+
+# unzip
+unzip cocostuff-10k-v1.1.zip
+
+# --nproc means 8 process for conversion, which could be omitted as well.
+python tools/convert_datasets/coco_stuff10k.py /path/to/coco_stuff10k --nproc 8
+python ./tools/dataset_converters/coco_stuff10k.py ./data/coco_stuff10k --nproc 8
+```
+
+source: http://mmsegmentation.readthedocs.io/en/0.x/dataset_prepare.html
+
+
 
 ## Training
 To aquire the base model
